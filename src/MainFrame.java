@@ -7,7 +7,7 @@ public class MainFrame implements Runnable {
     public MainFrame(String name) {
         JFrame frame = new JFrame("Skibidi Sigmas");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(960, 580); // 540 height of image + 40 for window menu bar
+        frame.setSize(657, 1100); // 540 height of image + 40 for window menu bar
         frame.setLocationRelativeTo(null); // auto-centers frame in screen
 
         // create and add panel

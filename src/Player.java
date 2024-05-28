@@ -91,7 +91,7 @@ public class Player {
     }
 
     public void moveDown() {
-        if (yCoord + MOVE_AMT <= 435) {
+        if (yCoord + MOVE_AMT <= 800) {
             yCoord += MOVE_AMT;
         }
     }

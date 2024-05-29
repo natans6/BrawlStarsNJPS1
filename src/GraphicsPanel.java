@@ -16,11 +16,11 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
     public GraphicsPanel(String name) {
         try {
-            background = ImageIO.read(new File("src/15000147.png"));
+            background = ImageIO.read(new File("src/Map4.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        player = new Player("src/marioright.png", name);
+        player = new Player("src/Chunli-hdstance-1.png", name);
         pressedKeys = new boolean[128];
         time = 0;
         timer = new Timer(1000, this); // this Timer will call the actionPerformed interface method every 1000ms = 1 second
@@ -34,7 +34,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);  // just do this
-        g.drawImage(background, -25, -25, null);  // the order that things get "painted" matter; we put background down first
+        g.drawImage(background, 0, 0, null);  // the order that things get "painted" matter; we put background down first
         //Here we use drawImage with additional parameters for width and height
         //Combined with the modified functions in the Player class, this does not modify the actual player image
         //Instead, it allows us to modify how the player image is drawn on the graphics object
@@ -63,14 +63,14 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         }
 
         // player moves up (W)
-        if (pressedKeys[87]) {
-            player.moveUp();
-        }
+        //if (pressedKeys[87]) {
+            //player.moveUp();
+        //}
 
         // player moves down (S)
-        if (pressedKeys[83]) {
-            player.moveDown();
-        }
+        //if (pressedKeys[83]) {
+            //player.moveDown();
+        //}
     }
 
     // ----- KeyListener interface methods -----

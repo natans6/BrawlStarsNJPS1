@@ -18,8 +18,8 @@ public class Player {
     public Player(String rightImg, String name) {
         this.name = name;
         facingRight = true;
-        xCoord = 50; // starting position is (50, 435), right on top of ground
-        yCoord = 435;
+        xCoord = 100; // starting position is (50, 435), right on top of ground
+        yCoord = 350;
         score = 0;
         try {
             right = ImageIO.read(new File(rightImg));
@@ -45,7 +45,7 @@ public class Player {
 
     public BufferedImage getPlayerImage() {
         try {
-            return ImageIO.read(new File ("src/marioleft.png"));
+            return ImageIO.read(new File ("src/Chunli-hdstance-1.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

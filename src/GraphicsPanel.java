@@ -15,10 +15,41 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private int time;
 
     public GraphicsPanel(String name) {
-        try {
-            background = ImageIO.read(new File("src/Map4.png"));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        int num = (int) (Math.random() * 5) + 1;
+        if (num == 1)   {
+            try {
+                background = ImageIO.read(new File("src/Map1.png"));
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        if (num == 2)   {
+            try {
+                background = ImageIO.read(new File("src/Map2.png"));
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        if (num == 3)   {
+            try {
+                background = ImageIO.read(new File("src/Map3.png"));
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        if (num == 4)   {
+            try {
+                background = ImageIO.read(new File("src/Map4.png"));
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        if (num == 5)   {
+            try {
+                background = ImageIO.read(new File("src/Map5.png"));
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
         player = new Player("src/Chunli-hdstance-1.png", name);
         pressedKeys = new boolean[128];

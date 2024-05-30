@@ -7,7 +7,7 @@ public class MainFrame implements Runnable {
     public MainFrame(String name) {
         JFrame frame = new JFrame("Skibidi Fighters - The Battle of Aura ");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1952, 780); // 540 height of image + 40 for window menu bar
+        frame.setSize(1920, 1080); // 540 height of image + 40 for window menu bar
         frame.setLocationRelativeTo(null); // auto-centers frame in screen
 
         // create and add panel

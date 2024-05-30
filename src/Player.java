@@ -34,7 +34,7 @@ public class Player {
 
         ArrayList<BufferedImage> run_animation = new ArrayList<>();
         for (int i = 1; i <= 4; i++) {
-            String filename = "src/ChunLi/Chunli-hdstance-" + i + ".png";
+            String filename = "src/ChunLi/ChunLi-Idle" + i + ".png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
             }

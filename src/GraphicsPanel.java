@@ -51,7 +51,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
                 System.out.println(e.getMessage());
             }
         }
-        player = new Player("src/Chunli-hdstance-1.png", name);
+        player = new Player("src/ChunLi.PlayerAnimation/Chunli-hdstance-1.png", name);
         pressedKeys = new boolean[128];
         time = 0;
         timer = new Timer(1000, this); // this Timer will call the actionPerformed interface method every 1000ms = 1 second

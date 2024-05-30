@@ -14,6 +14,8 @@ public class Player {
     private int score;
     private String name;
 
+    private Animation run;
+
 
     public Player(String rightImg, String name) {
         this.name = name;
@@ -30,6 +32,17 @@ public class Player {
         //The code below is used to programatically create an ArrayList of BufferedImages to use for an Animation object
         //By creating all the BufferedImages beforehand, we don't have to worry about lagging trying to read image files during gameplay
 
+        ArrayList<BufferedImage> run_animation = new ArrayList<>();
+        for (int i = 1; i <= 4; i++) {
+            String filename = "src/ChunLi/Chunli-hdstance-" + i + ".png";
+            try {
+                run_animation.add(ImageIO.read(new File(filename)));
+            }
+            catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        run = new Animation(run_animation,100);
     }
 
     //This function is changed from the previous version to let the player turn left and right
@@ -44,12 +57,7 @@ public class Player {
     }
 
     public BufferedImage getPlayerImage() {
-        try {
-            return ImageIO.read(new File ("src/Chunli-hdstance-1.png"));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+        return run.getActiveFrame();
     }
 
     public int getyCoord() {

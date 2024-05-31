@@ -13,7 +13,7 @@ public class Player {
     private double yCoord;
     private int score;
     private String name;
-
+    private Boolean walking;
     private Animation run;
 
 
@@ -23,6 +23,7 @@ public class Player {
         xCoord = 100; // starting position is (50, 435), right on top of ground
         yCoord = 350;
         score = 0;
+        walking = false;
         try {
             right = ImageIO.read(new File(rightImg));
         } catch (IOException e) {
@@ -31,17 +32,29 @@ public class Player {
 
         //The code below is used to programatically create an ArrayList of BufferedImages to use for an Animation object
         //By creating all the BufferedImages beforehand, we don't have to worry about lagging trying to read image files during gameplay
-
         ArrayList<BufferedImage> run_animation = new ArrayList<>();
-        for (int i = 1; i <= 4; i++) {
-            String filename = "src/ChunLi/ChunLi-Idle" + i + ".png";
-            try {
-                run_animation.add(ImageIO.read(new File(filename)));
+        if (!walking) {
+            for (int i = 1; i <= 8; i++) {
+                String filename = "src/ChunLiIdle/ChunLi-Idle" + i + ".png";
+                try {
+                    run_animation.add(ImageIO.read(new File(filename)));
+                }
+                catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
             }
-            catch (IOException e) {
-                System.out.println(e.getMessage());
+        } else {
+            for (int i = 1; i <= 8; i++) {
+                String filename = "src/ChunLiWalking/ChunLi-Walking" + i + ".png";
+                try {
+                    run_animation.add(ImageIO.read(new File(filename)));
+                }
+                catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
+
         run = new Animation(run_animation,200);
     }
 
@@ -84,12 +97,14 @@ public class Player {
         if (xCoord + MOVE_AMT <= 920) {
             xCoord += MOVE_AMT;
         }
+        walking = true;
     }
 
     public void moveLeft() {
         if (xCoord - MOVE_AMT >= 0) {
             xCoord -= MOVE_AMT;
         }
+        walking = true;
     }
 
     public void moveUp() {

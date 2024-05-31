@@ -42,7 +42,7 @@ public class Player {
                 System.out.println(e.getMessage());
             }
         }
-        run = new Animation(run_animation,100);
+        run = new Animation(run_animation,200);
     }
 
     //This function is changed from the previous version to let the player turn left and right

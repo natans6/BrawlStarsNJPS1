@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player {
-    private final double MOVE_AMT = 0.6;
+    private final double MOVE_AMT = 1.2;
     private BufferedImage right;
     private boolean facingRight;
     private double xCoord;
@@ -15,6 +15,8 @@ public class Player {
     private String name;
     private Boolean walking;
     private Animation run;
+    private Animation idle;
+    private Animation currentAnimation;
 
 
     public Player(String rightImg, String name) {
@@ -29,38 +31,41 @@ public class Player {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
-        //The code below is used to programatically create an ArrayList of BufferedImages to use for an Animation object
-        //By creating all the BufferedImages beforehand, we don't have to worry about lagging trying to read image files during gameplay
         ArrayList<BufferedImage> run_animation = new ArrayList<>();
-        if (!walking) {
-            for (int i = 1; i <= 8; i++) {
-                String filename = "src/ChunLiIdle/ChunLi-Idle" + i + ".png";
-                try {
-                    run_animation.add(ImageIO.read(new File(filename)));
-                }
-                catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        } else {
-            for (int i = 1; i <= 8; i++) {
-                String filename = "src/ChunLiWalking/ChunLi-Walking" + i + ".png";
-                try {
-                    run_animation.add(ImageIO.read(new File(filename)));
-                }
-                catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
+        for (int i = 1; i <= 4; i++) {
+            String filename = "src/ChunLiIdle/ChunLi-Idle" + i + ".png";
+            try {
+                run_animation.add(ImageIO.read(new File(filename)));
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
             }
         }
+        idle = new Animation(run_animation, 200);
 
-        run = new Animation(run_animation,200);
+        run_animation = new ArrayList<>();
+        for (int i = 1; i <= 8; i++) {
+            String filename = "src/ChunLiWalking/ChunLi-Walking" + i + ".png";
+            try {
+                run_animation.add(ImageIO.read(new File(filename)));
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        run = new Animation(run_animation, 150);
+    }
+
+    public void play() {
+        if (!walking) {
+            currentAnimation = idle;
+        } else {
+            currentAnimation = run;
+        }
     }
 
     //This function is changed from the previous version to let the player turn left and right
     //This version of the function, when combined with getWidth() and getHeight()
     //Allow the player to turn without needing separate images for left and right
+
     public int getxCoord() {
         if (facingRight) {
             return (int) xCoord;
@@ -70,7 +75,7 @@ public class Player {
     }
 
     public BufferedImage getPlayerImage() {
-        return run.getActiveFrame();
+        return currentAnimation.getActiveFrame();
     }
 
     public int getyCoord() {
@@ -94,28 +99,14 @@ public class Player {
     }
 
     public void moveRight() {
-        if (xCoord + MOVE_AMT <= 920) {
+        if (xCoord + MOVE_AMT <= 1920 - playerRect().getWidth()) {
             xCoord += MOVE_AMT;
         }
-        walking = true;
     }
 
     public void moveLeft() {
         if (xCoord - MOVE_AMT >= 0) {
             xCoord -= MOVE_AMT;
-        }
-        walking = true;
-    }
-
-    public void moveUp() {
-        if (yCoord - MOVE_AMT >= 0) {
-            yCoord -= MOVE_AMT;
-        }
-    }
-
-    public void moveDown() {
-        if (yCoord + MOVE_AMT <= 800) {
-            yCoord += MOVE_AMT;
         }
     }
 
@@ -127,8 +118,12 @@ public class Player {
         }
     }
 
-    public void collectCoin() {
-        score++;
+    public void walking() {
+        walking = true;
+    }
+
+    public void idle() {
+        walking = false;
     }
 
 

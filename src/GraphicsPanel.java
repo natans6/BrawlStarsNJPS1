@@ -64,6 +64,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
     @Override
     public void paintComponent(Graphics g) {
+        player.play();
         super.paintComponent(g);  // just do this
         g.drawImage(background, 0, 0, null);  // the order that things get "painted" matter; we put background down first
         //Here we use drawImage with additional parameters for width and height
@@ -85,23 +86,17 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         if (pressedKeys[65]) {
             player.faceLeft();
             player.moveLeft();
+            player.walking();
         }
 
         // player moves right (D)
         if (pressedKeys[68]) {
             player.faceRight();
             player.moveRight();
+            player.walking();
         }
 
-        // player moves up (W)
-        //if (pressedKeys[87]) {
-            //player.moveUp();
-        //}
 
-        // player moves down (S)
-        //if (pressedKeys[83]) {
-            //player.moveDown();
-        //}
     }
 
     // ----- KeyListener interface methods -----
@@ -117,6 +112,9 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         pressedKeys[key] = false;
+        if (key == 65 || key == 68) {
+            player.idle();
+        }
     }
 
     // ----- MouseListener interface methods -----

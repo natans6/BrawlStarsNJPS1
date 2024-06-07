@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player {
-    private final double MOVE_AMT = 1.2;
+    private double MOVE_AMT;
     private BufferedImage right;
     private boolean facingRight;
     private double xCoord;
@@ -14,12 +14,16 @@ public class Player {
     private int score;
     private String name;
     private Boolean walking;
+    private Boolean crouch;
     private Animation run;
     private Animation idle;
+    private Animation crouchs;
     private Animation currentAnimation;
 
 
     public Player(String rightImg, String name) {
+        MOVE_AMT = 1.6;
+        crouch = false;
         this.name = name;
         facingRight = true;
         xCoord = 100; // starting position is (50, 435), right on top of ground
@@ -52,12 +56,26 @@ public class Player {
             }
         }
         run = new Animation(run_animation, 150);
+
+        run_animation = new ArrayList<>();
+        for (int i = 1; i <= 2; i++) {
+            String filename = "src/ChunLiCrouch/ChunLi-Crouch" + i + ".png";
+            try {
+                run_animation.add(ImageIO.read(new File(filename)));
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        crouchs = new Animation(run_animation, 150);
+
     }
 
     public void play() {
-        if (!walking) {
+        if (!walking && !crouch) {
             currentAnimation = idle;
-        } else {
+        }else if (crouch)  {
+            currentAnimation = crouchs;
+        } else if (walking) {
             currentAnimation = run;
         }
     }
@@ -120,12 +138,20 @@ public class Player {
 
     public void walking() {
         walking = true;
+        MOVE_AMT = 1.6;
     }
 
     public void idle() {
         walking = false;
+        crouch = false;
+        yCoord = 350;
     }
 
+    public void crouching() {
+        crouch = true;
+        yCoord = 420;
+        MOVE_AMT = 0.8;
+    }
 
     //These functions are newly added to let the player turn left and right
     //These functions when combined with the updated getxCoord()

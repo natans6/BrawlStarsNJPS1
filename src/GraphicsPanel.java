@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class GraphicsPanel extends JPanel implements KeyListener, MouseListener, ActionListener {
     private BufferedImage background;
     private Player player;
+    private PlayerTwo playerTwo;
     private boolean[] pressedKeys;
     private Timer timer;
     private int time;
@@ -54,6 +55,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             }
         }
         player = new Player("src/ChunLiIdle/ChunLi-Idle1.png", name);
+        playerTwo = new PlayerTwo("src/RyuIdle/Ryu-Idle1.png", name);
         pressedKeys = new boolean[128];
         time = 0;
         timer = new Timer(1000, this); // this Timer will call the actionPerformed interface method every 1000ms = 1 second
@@ -67,6 +69,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     @Override
     public void paintComponent(Graphics g) {
         player.play();
+        playerTwo.play();
         super.paintComponent(g);  // just do this
         g.drawImage(background, 0, 0, null);  // the order that things get "painted" matter; we put background down first
         //Here we use drawImage with additional parameters for width and height
@@ -74,7 +77,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         //Instead, it allows us to modify how the player image is drawn on the graphics object
         //However, this could potentially introduce desyncs between the graphics and the game logic
         g.drawImage(player.getPlayerImage(), player.getxCoord(), player.getyCoord(), player.getWidth(), player.getHeight(), null);
-
+        g.drawImage(playerTwo.getPlayerImage(), playerTwo.getxCoord(), playerTwo.getyCoord(), playerTwo.getWidth(), playerTwo.getHeight(), null);
         // this loop does two things:  it draws each Coin that gets placed with mouse clicks,
         // and it also checks if the player has "intersected" (collided with) the Coin, and if so,
         // the score goes up and the Coin is removed from the arraylist
@@ -110,6 +113,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             player.jumping();
             isJumping = true;
         }
+
     }
 
     // ----- KeyListener interface methods -----

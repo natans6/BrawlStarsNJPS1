@@ -5,9 +5,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Player {
+public class PlayerTwo {
     private double MOVE_AMT;
-    private BufferedImage right;
+    private BufferedImage left;
     private boolean facingRight;
     private double xCoord;
     private double yCoord;
@@ -26,26 +26,26 @@ public class Player {
     private Animation currentAnimation;
 
 
-    public Player(String rightImg, String name) {
+    public PlayerTwo(String leftImg, String name) {
         MOVE_AMT = 0.5;
         crouch = false;
         jump = false;
         punch = false;
         jumpCount = 0;
         this.name = name;
-        facingRight = true;
-        xCoord = 100; // starting position is (50, 435), right on top of ground
+        facingRight = false;
+        xCoord = 1600; // starting position is (50, 435), right on top of ground
         yCoord = 350;
         score = 0;
         walking = false;
         try {
-            right = ImageIO.read(new File(rightImg));
+            left = ImageIO.read(new File(leftImg));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
         ArrayList<BufferedImage> run_animation = new ArrayList<>();
         for (int i = 1; i <= 4; i++) {
-            String filename = "src/ChunLiIdle/ChunLi-Idle" + i + ".png";
+            String filename = "src/RyuIdle/Ryu-Idle" + i + ".png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
             } catch (IOException e) {
@@ -56,7 +56,7 @@ public class Player {
 
         run_animation = new ArrayList<>();
         for (int i = 1; i <= 8; i++) {
-            String filename = "src/ChunLiWalking/ChunLi-Walking" + i + ".png";
+            String filename = "src/RyuWalking/Ryu-Walking" + i + ".png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
             } catch (IOException e) {
@@ -66,8 +66,8 @@ public class Player {
         run = new Animation(run_animation, 150);
 
         run_animation = new ArrayList<>();
-        for (int i = 1; i <= 2; i++) {
-            String filename = "src/ChunLiCrouch/ChunLi-Crouch" + i + ".png";
+        for (int i = 1; i <= 1; i++) {
+            String filename = "src/RyuCrouch/Ryu-Crouch" + i + ".png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
             } catch (IOException e) {
@@ -76,8 +76,8 @@ public class Player {
         }
         crouchs = new Animation(run_animation, 150);
         run_animation = new ArrayList<>();
-        for (int i = 1; i <= 4; i++) {
-            String filename = "src/ChunLiJumping/ChunLi-Jumping" + i + ".png";
+        for (int i = 1; i <= 6; i++) {
+            String filename = "src/RyuJumping/Ryu-Jumping" + i + ".png";
             jumpCount++;
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
@@ -88,15 +88,15 @@ public class Player {
         jumps = new Animation(run_animation, 200);
 
         run_animation = new ArrayList<>();
-        for (int i = 2; i <= 3; i++) {
-            String filename = "src/ChunLiPunch/ChunLi-Punch" + i + ".png";
+        for (int i = 1; i <= 3; i++) {
+            String filename = "src/RyuPunch/Ryu-Punch" + i + ".png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         }
-       punchs = new Animation(run_animation, 100);
+        punchs = new Animation(run_animation, 100);
     }
 
     public void play() {

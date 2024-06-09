@@ -17,10 +17,12 @@ public class Player {
     private Boolean walking;
     private Boolean crouch;
     private Boolean jump;
+    private Boolean punch;
     private Animation run;
     private Animation idle;
     private Animation crouchs;
     private Animation jumps;
+    private Animation punchs;
     private Animation currentAnimation;
 
 
@@ -28,6 +30,7 @@ public class Player {
         MOVE_AMT = 1;
         crouch = false;
         jump = false;
+        punch = false;
         jumpCount = 0;
         this.name = name;
         facingRight = true;
@@ -84,16 +87,30 @@ public class Player {
             }
         }
         jumps = new Animation(run_animation, 200);
+
+        run_animation = new ArrayList<>();
+        for (int i = 1; i <= 3; i++) {
+            String filename = "src/ChunLiPunch/ChunLi-Punch" + i + ".png";
+            try {
+                run_animation.add(ImageIO.read(new File(filename)));
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+       punchs = new Animation(run_animation, 150);
     }
 
     public void play() {
-        if (!walking && !crouch && !jump) {
+        if (!walking && !crouch && !jump && !punch) {
             currentAnimation = idle;
-        } else if (crouch && !jump)  {
+        } else if (crouch && !jump && !punch)  {
             currentAnimation = crouchs;
-        } else if (jump)    {
+        } else if (jump && !punch)    {
             currentAnimation = jumps;
-        } else if (walking) {
+        } else if (punch)   {
+            currentAnimation = punchs;
+        }
+        else if (walking) {
             currentAnimation = run;
         }
     }
@@ -162,6 +179,8 @@ public class Player {
     public void idle() {
         walking = false;
         crouch = false;
+        punch = false;
+        jump = false;
         yCoord = 350;
     }
 
@@ -196,6 +215,11 @@ public class Player {
         currentAnimation = idle;
         jump = false;
         yCoord = 350;
+    }
+
+    public void punching()  {
+        punch = true;
+        yCoord = 410;
     }
 
     //These functions are newly added to let the player turn left and right

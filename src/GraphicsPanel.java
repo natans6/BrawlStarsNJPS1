@@ -83,6 +83,11 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         g.drawString("Time: " + time, 20, 70);
 
         // player moves left (A)
+
+        if (pressedKeys[69])    {
+            player.punching();
+        }
+
         if (pressedKeys[65]) {
             player.faceLeft();
             player.moveLeft();
@@ -104,6 +109,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         }
 
 
+
     }
 
     // ----- KeyListener interface methods -----
@@ -119,7 +125,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         pressedKeys[key] = false;
-        if (key == 65 || key == 68 || key == 83) {
+        if (key == 65 || key == 68 || key == 83 || key == 69) {
             player.idle();
         }
         if (key == 87)  {

@@ -97,7 +97,10 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         }
         if (pressedKeys[83]) {
             player.crouching();
+        }
 
+        if (pressedKeys[87]) {
+            player.jumping();
         }
 
 
@@ -118,6 +121,9 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         pressedKeys[key] = false;
         if (key == 65 || key == 68 || key == 83) {
             player.idle();
+        }
+        if (key == 87)  {
+            player.stopJump();
         }
     }
 

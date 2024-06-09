@@ -13,8 +13,10 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private boolean[] pressedKeys;
     private Timer timer;
     private int time;
+    private boolean isJumping;
 
     public GraphicsPanel(String name) {
+        isJumping = false;
         int num = (int) (Math.random() * 5) + 1;
         if (num == 1)   {
             try {
@@ -104,12 +106,10 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             player.crouching();
         }
 
-        if (pressedKeys[87]) {
+        if (pressedKeys[87] && !isJumping) {
             player.jumping();
+            isJumping = true;
         }
-
-
-
     }
 
     // ----- KeyListener interface methods -----
@@ -130,6 +130,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         }
         if (key == 87)  {
             player.stopJump();
+            isJumping = false;
         }
     }
 

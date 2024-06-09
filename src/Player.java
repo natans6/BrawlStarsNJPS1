@@ -27,7 +27,7 @@ public class Player {
 
 
     public Player(String rightImg, String name) {
-        MOVE_AMT = 1;
+        MOVE_AMT = 0.8;
         crouch = false;
         jump = false;
         punch = false;
@@ -88,7 +88,7 @@ public class Player {
         jumps = new Animation(run_animation, 200);
 
         run_animation = new ArrayList<>();
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 2; i <= 3; i++) {
             String filename = "src/ChunLiPunch/ChunLi-Punch" + i + ".png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
@@ -96,7 +96,7 @@ public class Player {
                 System.out.println(e.getMessage());
             }
         }
-       punchs = new Animation(run_animation, 150);
+       punchs = new Animation(run_animation, 100);
     }
 
     public void play() {

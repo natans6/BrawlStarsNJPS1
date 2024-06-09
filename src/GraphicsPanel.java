@@ -14,10 +14,12 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private boolean[] pressedKeys;
     private Timer timer;
     private int time;
-    private boolean isJumping;
+    private boolean OneisJumping;
+    private boolean TwoisJumping;
 
     public GraphicsPanel(String name) {
-        isJumping = false;
+        OneisJumping = false;
+        TwoisJumping = false;
         int num = (int) (Math.random() * 5) + 1;
         if (num == 1)   {
             try {
@@ -109,11 +111,35 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             player.crouching();
         }
 
-        if (pressedKeys[87] && !isJumping) {
+        if (pressedKeys[87] && !OneisJumping) {
             player.jumping();
-            isJumping = true;
+            OneisJumping = true;
+        }
+        //PlayerTwo
+        if (pressedKeys[85])    {
+            playerTwo.punching();
         }
 
+        if (pressedKeys[74]) {
+            playerTwo.faceLeft();
+            playerTwo.moveLeft();
+            playerTwo.walking();
+        }
+
+        // player moves right (D)
+        if (pressedKeys[76]) {
+            playerTwo.faceRight();
+            playerTwo.moveRight();
+            playerTwo.walking();
+        }
+        if (pressedKeys[75]) {
+            playerTwo.crouching();
+        }
+
+        if (pressedKeys[73] && !TwoisJumping) {
+            playerTwo.jumping();
+            TwoisJumping = true;
+        }
     }
 
     // ----- KeyListener interface methods -----
@@ -132,9 +158,16 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         if (key == 65 || key == 68 || key == 83 || key == 69) {
             player.idle();
         }
+        if (key == 85 || key == 74 || key == 76 || key == 75) {
+            playerTwo.idle();
+        }
         if (key == 87)  {
             player.stopJump();
-            isJumping = false;
+            OneisJumping = false;
+        }
+        if (key == 73)  {
+            playerTwo.stopJump();
+            TwoisJumping = false;
         }
     }
 

@@ -35,7 +35,7 @@ public class PlayerTwo {
         this.name = name;
         facingRight = false;
         xCoord = 1600; // starting position is (50, 435), right on top of ground
-        yCoord = 350;
+        yCoord = 380;
         score = 0;
         walking = false;
         try {
@@ -55,7 +55,7 @@ public class PlayerTwo {
         idle = new Animation(run_animation, 200);
 
         run_animation = new ArrayList<>();
-        for (int i = 1; i <= 8; i++) {
+        for (int i = 1; i <= 5; i++) {
             String filename = "src/RyuWalking/Ryu-Walking" + i + ".png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
@@ -172,7 +172,7 @@ public class PlayerTwo {
 
     public void walking() {
         walking = true;
-        MOVE_AMT = 1.6;
+        MOVE_AMT = 0.8;
     }
 
     public void idle() {
@@ -180,12 +180,12 @@ public class PlayerTwo {
         crouch = false;
         punch = false;
         jump = false;
-        yCoord = 350;
+        yCoord = 380;
     }
 
     public void crouching() {
         crouch = true;
-        yCoord = 420;
+        yCoord = 500;
         MOVE_AMT = 0.25;
     }
 
@@ -218,7 +218,7 @@ public class PlayerTwo {
 
     public void punching()  {
         punch = true;
-        yCoord = 410;
+        yCoord = 380;
     }
 
     //These functions are newly added to let the player turn left and right

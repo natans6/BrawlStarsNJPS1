@@ -172,7 +172,7 @@ public class Player {
 
     public void walking() {
         walking = true;
-        MOVE_AMT = 1.6;
+        MOVE_AMT = 0.8;
     }
 
     public void idle() {

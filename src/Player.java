@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player {
+    private int healthPlayerOne;
     private double MOVE_AMT;
     private BufferedImage right;
     private boolean facingRight;
@@ -27,6 +28,7 @@ public class Player {
 
 
     public Player(String rightImg, String name) {
+        healthPlayerOne = 1000;
         MOVE_AMT = 0.5;
         crouch = false;
         jump = false;
@@ -96,7 +98,7 @@ public class Player {
                 System.out.println(e.getMessage());
             }
         }
-       punchs = new Animation(run_animation, 100);
+       punchs = new Animation(run_animation, 150);
     }
 
     public void play() {
@@ -118,6 +120,12 @@ public class Player {
     //This version of the function, when combined with getWidth() and getHeight()
     //Allow the player to turn without needing separate images for left and right
 
+    public int getHealthPlayerOne(){
+        return  healthPlayerOne;
+    }
+    public void  setHealthPlayerOne(int damage){
+        healthPlayerOne -= damage;
+    }
     public int getxCoord() {
         if (facingRight) {
             return (int) xCoord;
@@ -219,6 +227,10 @@ public class Player {
     public void punching()  {
         punch = true;
         yCoord = 410;
+    }
+
+    public boolean getPunch(){
+        return punch;
     }
 
     //These functions are newly added to let the player turn left and right

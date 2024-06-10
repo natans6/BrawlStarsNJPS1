@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class PlayerTwo {
+    private int healthPlayerTwo;
     private double MOVE_AMT;
     private BufferedImage left;
     private boolean facingRight;
@@ -27,6 +28,7 @@ public class PlayerTwo {
 
 
     public PlayerTwo(String leftImg, String name) {
+        healthPlayerTwo = 1000;
         MOVE_AMT = 0.5;
         crouch = false;
         jump = false;
@@ -34,8 +36,8 @@ public class PlayerTwo {
         jumpCount = 0;
         this.name = name;
         facingRight = false;
-        xCoord = 1600; // starting position is (50, 435), right on top of ground
-        yCoord = 380;
+        xCoord = 1520;
+        yCoord = 375;
         score = 0;
         walking = false;
         try {
@@ -55,7 +57,7 @@ public class PlayerTwo {
         idle = new Animation(run_animation, 200);
 
         run_animation = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 8; i++) {
             String filename = "src/RyuWalking/Ryu-Walking" + i + ".png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
@@ -118,6 +120,12 @@ public class PlayerTwo {
     //This version of the function, when combined with getWidth() and getHeight()
     //Allow the player to turn without needing separate images for left and right
 
+    public int getHealthPlayerTwo(){
+        return  healthPlayerTwo;
+    }
+    public void  setHealthPlayerTwo(int damage){
+        healthPlayerTwo -= damage;
+    }
     public int getxCoord() {
         if (facingRight) {
             return (int) xCoord;
@@ -151,7 +159,7 @@ public class PlayerTwo {
     }
 
     public void moveRight() {
-        if (xCoord + MOVE_AMT <= 1920 - playerRect().getWidth()) {
+        if (xCoord + MOVE_AMT <= 1920 - playerTwoRect().getWidth()) {
             xCoord += MOVE_AMT;
         }
     }
@@ -180,12 +188,12 @@ public class PlayerTwo {
         crouch = false;
         punch = false;
         jump = false;
-        yCoord = 380;
+        yCoord = 375;
     }
 
     public void crouching() {
         crouch = true;
-        yCoord = 500;
+        yCoord = 420;
         MOVE_AMT = 0.25;
     }
 
@@ -220,6 +228,9 @@ public class PlayerTwo {
         punch = true;
         yCoord = 380;
     }
+    public boolean getPunch(){
+        return punch;
+    }
 
     //These functions are newly added to let the player turn left and right
     //These functions when combined with the updated getxCoord()
@@ -237,7 +248,7 @@ public class PlayerTwo {
     }
 
     // we use a "bounding Rectangle" for detecting collision
-    public Rectangle playerRect() {
+    public Rectangle playerTwoRect() {
         int imageHeight = getPlayerImage().getHeight();
         int imageWidth = getPlayerImage().getWidth();
         Rectangle rect = new Rectangle((int) xCoord, (int) yCoord, imageWidth, imageHeight);

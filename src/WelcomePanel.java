@@ -56,11 +56,11 @@ public class WelcomePanel extends JPanel implements ActionListener {
         g.drawString("Please enter your name's :", 400, 100);
         g.setFont(new Font("Arial", Font.BOLD, 15));
         g.setColor(Color.BLACK);
-        g.drawString("NAME ONE:", 615, 250);
+        g.drawString("PLAYER ONE:", 615, 250);
         playerOneName.setLocation(600, 280);
         g.drawImage(chunLi, 400, 200, null);
         g.setColor(Color.BLACK);
-        g.drawString("NAME TWO:", 615, 320);
+        g.drawString("PLAYER TWO:", 615, 320);
         g.drawImage(Ryu, 800, 300, null);
         playerTwoName.setLocation(600, 350);
         submitButton.setLocation(615, 400);

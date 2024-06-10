@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class GraphicsPanel extends JPanel implements KeyListener, MouseListener, ActionListener {
     private BufferedImage background;
+
     private Player player;
     private PlayerTwo playerTwo;
     private boolean[] pressedKeys;
@@ -16,7 +17,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private int time;
     private boolean OneisJumping;
     private boolean TwoisJumping;
-
     public GraphicsPanel(String name, String nameTwo) {
         OneisJumping = false;
         TwoisJumping = false;
@@ -62,6 +62,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         time = 0;
         timer = new Timer(1000, this); // this Timer will call the actionPerformed interface method every 1000ms = 1 second
         timer.start();
+
         addKeyListener(this);
         addMouseListener(this);
         setFocusable(true); // this line of code + one below makes this panel active for keylistener events
@@ -78,12 +79,13 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         //Combined with the modified functions in the Player class, this does not modify the actual player image
         //Instead, it allows us to modify how the player image is drawn on the graphics object
         //However, this could potentially introduce desyncs between the graphics and the game logic
+
+
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.drawString("Player One Health: " + player.getHealthPlayerOne(), 50, 40);
+        g.drawString("Player Two Health: " + playerTwo.getHealthPlayerTwo(), 50, 80);
         g.drawImage(player.getPlayerImage(), player.getxCoord(), player.getyCoord(), player.getWidth(), player.getHeight(), null);
         g.drawImage(playerTwo.getPlayerImage(), playerTwo.getxCoord(), playerTwo.getyCoord(), playerTwo.getWidth(), playerTwo.getHeight(), null);
-        // this loop does two things:  it draws each Coin that gets placed with mouse clicks,
-        // and it also checks if the player has "intersected" (collided with) the Coin, and if so,
-        // the score goes up and the Coin is removed from the arraylist
-
 
         if (pressedKeys[69])    {
             player.punching();
@@ -162,6 +164,15 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         if (key == 73)  {
             playerTwo.stopJump();
             TwoisJumping = false;
+        }
+        // If Statements for damage
+        if (key == 69 && player.playerRect().intersects(playerTwo.playerTwoRect())){
+            int damage  = (int) (Math.random() * 11) + 60;
+            playerTwo.setHealthPlayerTwo(damage);
+        }
+        if (key == 85 && playerTwo.playerTwoRect().intersects(player.playerRect())){
+            int damage  = (int) (Math.random() * 11) + 60;
+            player.setHealthPlayerOne(damage);
         }
     }
 

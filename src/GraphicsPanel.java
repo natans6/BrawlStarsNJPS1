@@ -17,7 +17,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private boolean OneisJumping;
     private boolean TwoisJumping;
 
-    public GraphicsPanel(String name) {
+    public GraphicsPanel(String name, String nameTwo) {
         OneisJumping = false;
         TwoisJumping = false;
         int num = (int) (Math.random() * 5) + 1;
@@ -57,7 +57,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             }
         }
         player = new Player("src/ChunLiIdle/ChunLi-Idle1.png", name);
-        playerTwo = new PlayerTwo("src/RyuIdle/Ryu-Idle1.png", name);
+        playerTwo = new PlayerTwo("src/RyuIdle/Ryu-Idle1.png", nameTwo);
         pressedKeys = new boolean[128];
         time = 0;
         timer = new Timer(1000, this); // this Timer will call the actionPerformed interface method every 1000ms = 1 second
@@ -84,12 +84,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         // and it also checks if the player has "intersected" (collided with) the Coin, and if so,
         // the score goes up and the Coin is removed from the arraylist
 
-        // draw score
-        g.setFont(new Font("Courier New", Font.BOLD, 24));
-        g.drawString(player.getName() + "'s Score: " + player.getScore(), 20, 40);
-        g.drawString("Time: " + time, 20, 70);
-
-        // player moves left (A)
 
         if (pressedKeys[69])    {
             player.punching();

@@ -98,6 +98,8 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         g.drawImage(player.getPlayerImage(), player.getxCoord(), player.getyCoord(), player.getWidth(), player.getHeight(), null);
         g.drawImage(playerTwo.getPlayerImage(), playerTwo.getxCoord(), playerTwo.getyCoord(), playerTwo.getWidth(), playerTwo.getHeight(), null);
 
+        g.setColor(Color.WHITE);
+        g.fillRect(105,195, 1710, 60);
         g.setColor(Color.red);
         g.fillRect(110, 200, 1700, 50);
         g.setColor(Color.yellow);

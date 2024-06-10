@@ -36,7 +36,7 @@ public class Player {
         jumpCount = 0;
         this.name = name;
         facingRight = true;
-        xCoord = 100; // starting position is (50, 435), right on top of ground
+        xCoord = 300; // starting position is (50, 435), right on top of ground
         yCoord = 350;
         score = 0;
         walking = false;
@@ -106,7 +106,7 @@ public class Player {
             currentAnimation = idle;
         } else if (crouch && !jump && !punch)  {
             currentAnimation = crouchs;
-        } else if (jump && !punch)    {
+        } else if (jump && !punch && !crouch)    {
             currentAnimation = jumps;
         } else if (punch)   {
             currentAnimation = punchs;

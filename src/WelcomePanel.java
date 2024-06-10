@@ -51,7 +51,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(background, 0, 0, null);
-        g.setFont(new Font("Arial", Font.BOLD, 50));
+        g.setFont(new Font("Helvetica", Font.BOLD, 50));
         g.setColor(Color.WHITE);
         g.drawString("Please enter your name's :", 400, 100);
         g.setFont(new Font("Arial", Font.BOLD, 15));

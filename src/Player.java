@@ -145,6 +145,9 @@ public class Player {
     public int getScore() {
         return score;
     }
+    public int gethealthPlayerOne() {
+        return healthPlayerOne;
+    }
 
     public String getName() {
         return name;

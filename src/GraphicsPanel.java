@@ -13,6 +13,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private Player player;
     private PlayerTwo playerTwo;
     private boolean[] pressedKeys;
+    private boolean gameGoing;
     private int countOne;
     private int countTwo;
     private Timer timer;
@@ -20,18 +21,24 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private boolean OneisJumping;
     private boolean TwoisJumping;
     private BufferedImage koImage;
+    private BufferedImage winKO;
     public GraphicsPanel(String name, String nameTwo) {
         countOne = 0;
         countTwo = 0;
         OneisJumping = false;
         TwoisJumping = false;
+        gameGoing = true;
         int num = (int) (Math.random() * 5) + 1;
         try {
             koImage = ImageIO.read(new File("src/KO.png"));
         } catch (IOException e) {
         System.out.println(e.getMessage());
         }
-
+        try {
+            winKO = ImageIO.read(new File("src/WINKO.png"));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         if (num == 1)   {
             try {
                 background = ImageIO.read(new File("src/Map1.png"));
@@ -73,7 +80,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         time = 0;
         timer = new Timer(1000, this); // this Timer will call the actionPerformed interface method every 1000ms = 1 second
         timer.start();
-
         addKeyListener(this);
         addMouseListener(this);
         setFocusable(true); // this line of code + one below makes this panel active for keylistener events
@@ -111,53 +117,58 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         g.drawImage(koImage,910,200,koImage.getWidth(),koImage.getHeight(),null);
 
 
-
-        if (pressedKeys[69])    {
+        if (player.gethealthPlayerOne() <= 0)   {
+            gameGoing = false;
+        }
+        if (playerTwo.gethealthPlayerTwo() <= 0)    {
+            gameGoing = false;
+        }
+        if (pressedKeys[69] && gameGoing)    {
             player.punching();
         }
 
-        if (pressedKeys[65]) {
+        if (pressedKeys[65] && gameGoing) {
             player.faceLeft();
             player.moveLeft();
             player.walking();
         }
 
         // player moves right (D)
-        if (pressedKeys[68]) {
+        if (pressedKeys[68] && gameGoing) {
             player.faceRight();
             player.moveRight();
             player.walking();
         }
-        if (pressedKeys[83]) {
+        if (pressedKeys[83] && gameGoing) {
             player.crouching();
         }
 
-        if (pressedKeys[87] && !OneisJumping) {
+        if (pressedKeys[87] && !OneisJumping && gameGoing) {
             player.jumping();
             OneisJumping = true;
         }
         //PlayerTwo
-        if (pressedKeys[85])    {
+        if (pressedKeys[85] && gameGoing)    {
             playerTwo.punching();
         }
 
-        if (pressedKeys[74]) {
+        if (pressedKeys[74] && gameGoing) {
             playerTwo.faceLeft();
             playerTwo.moveLeft();
             playerTwo.walking();
         }
 
         // player moves right (D)
-        if (pressedKeys[76]) {
+        if (pressedKeys[76] && gameGoing) {
             playerTwo.faceRight();
             playerTwo.moveRight();
             playerTwo.walking();
         }
-        if (pressedKeys[75]) {
+        if (pressedKeys[75] && gameGoing) {
             playerTwo.crouching();
         }
 
-        if (pressedKeys[73] && !TwoisJumping) {
+        if (pressedKeys[73] && !TwoisJumping && gameGoing) {
             playerTwo.jumping();
             TwoisJumping = true;
         }

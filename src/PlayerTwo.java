@@ -119,7 +119,9 @@ public class PlayerTwo {
     //This function is changed from the previous version to let the player turn left and right
     //This version of the function, when combined with getWidth() and getHeight()
     //Allow the player to turn without needing separate images for left and right
-
+    public int gethealthPlayerTwo() {
+        return healthPlayerTwo;
+    }
     public int getHealthPlayerTwo(){
         return  healthPlayerTwo;
     }

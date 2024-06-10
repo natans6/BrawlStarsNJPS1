@@ -28,7 +28,7 @@ public class PlayerTwo {
 
 
     public PlayerTwo(String leftImg, String name) {
-        healthPlayerTwo = 1000;
+        healthPlayerTwo = 5000;
         MOVE_AMT = 0.5;
         crouch = false;
         jump = false;
@@ -57,7 +57,7 @@ public class PlayerTwo {
         idle = new Animation(run_animation, 200);
 
         run_animation = new ArrayList<>();
-        for (int i = 1; i <= 8; i++) {
+        for (int i = 1; i <= 5; i++) {
             String filename = "src/RyuWalking/Ryu-Walking" + i + ".png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));

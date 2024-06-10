@@ -17,10 +17,17 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private int time;
     private boolean OneisJumping;
     private boolean TwoisJumping;
+    private BufferedImage koImage;
     public GraphicsPanel(String name, String nameTwo) {
         OneisJumping = false;
         TwoisJumping = false;
         int num = (int) (Math.random() * 5) + 1;
+        try {
+            koImage = ImageIO.read(new File("src/KO.png"));
+        } catch (IOException e) {
+        System.out.println(e.getMessage());
+        }
+
         if (num == 1)   {
             try {
                 background = ImageIO.read(new File("src/Map1.png"));
@@ -86,6 +93,18 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         g.drawString("Player Two Health: " + playerTwo.getHealthPlayerTwo(), 50, 80);
         g.drawImage(player.getPlayerImage(), player.getxCoord(), player.getyCoord(), player.getWidth(), player.getHeight(), null);
         g.drawImage(playerTwo.getPlayerImage(), playerTwo.getxCoord(), playerTwo.getyCoord(), playerTwo.getWidth(), playerTwo.getHeight(), null);
+
+        g.setColor(Color.red);
+        g.fillRect(110, 200, 1700, 50);
+        g.setColor(Color.yellow);
+        int part = (int) Math.round(((double) player.getHealthPlayerOne()) / 5000 * 800);
+        g.fillRect(110 + 800 - part, 200, part, 50);
+
+        int part2 = (int) Math.round(((double) playerTwo.getHealthPlayerTwo()) / 5000 * 800);
+        g.fillRect(1010, 200, part2, 50);
+        g.drawImage(koImage,910,200,koImage.getWidth(),koImage.getHeight(),null);
+
+
 
         if (pressedKeys[69])    {
             player.punching();

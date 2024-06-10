@@ -28,7 +28,7 @@ public class Player {
 
 
     public Player(String rightImg, String name) {
-        healthPlayerOne = 1000;
+        healthPlayerOne = 5000;
         MOVE_AMT = 0.5;
         crouch = false;
         jump = false;

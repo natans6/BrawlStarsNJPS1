@@ -57,7 +57,7 @@ public class PlayerTwo {
         idle = new Animation(run_animation, 200);
 
         run_animation = new ArrayList<>();
-        for (int i = 1; i <= 8; i++) {
+        for (int i = 1; i <= 5; i++) {
             String filename = "src/RyuWalking/Ryu-Walking" + i + ".png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
@@ -221,7 +221,7 @@ public class PlayerTwo {
     public void stopJump()  {
         currentAnimation = idle;
         jump = false;
-        yCoord = 350;
+        yCoord = 375;
     }
 
     public void punching()  {

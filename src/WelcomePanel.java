@@ -20,19 +20,19 @@ public class WelcomePanel extends JPanel implements ActionListener {
 
     public WelcomePanel(JFrame frame) {
         try {
-            background = ImageIO.read(new File("src/MenuPic.png"));
+            background = ImageIO.read(new File("src/MainMenuPic.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
 
         try {
-            chunLi = ImageIO.read(new File("src/ChunLi.png"));
+            chunLi = ImageIO.read(new File("src/Ryu.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
 
         try {
-            Ryu = ImageIO.read(new File("src/Ryu.png"));
+            Ryu = ImageIO.read(new File("src/ChunLi.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -40,7 +40,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
         enclosingFrame = frame;
         playerOneName = new JTextField(10);
         playerTwoName = new JTextField(10);
-        submitButton = new JButton("Submit");
+        submitButton = new JButton("START");
         add(playerOneName);
         add(playerTwoName);
         add(submitButton);
@@ -51,19 +51,17 @@ public class WelcomePanel extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(background, 0, 0, null);
-        g.setFont(new Font("Helvetica", Font.BOLD, 50));
-        g.setColor(Color.WHITE);
-        g.drawString("Please enter your name's :", 400, 100);
+
         g.setFont(new Font("Arial", Font.BOLD, 15));
-        g.setColor(Color.BLACK);
-        g.drawString("PLAYER ONE:", 615, 250);
-        playerOneName.setLocation(600, 280);
-        g.drawImage(chunLi, 400, 200, null);
-        g.setColor(Color.BLACK);
-        g.drawString("PLAYER TWO:", 615, 320);
-        g.drawImage(Ryu, 800, 300, null);
-        playerTwoName.setLocation(600, 350);
-        submitButton.setLocation(615, 400);
+        g.setColor(Color.WHITE);
+        g.drawString("PLAYER ONE:", 665, 250);
+        playerOneName.setLocation(660, 280);
+        g.drawImage(chunLi, 450, 200, null);
+        g.setColor(Color.WHITE);
+        g.drawString("PLAYER TWO:", 665, 320);
+        g.drawImage(Ryu, 850, 300, null);
+        playerTwoName.setLocation(660, 350);
+        submitButton.setLocation(685, 400);
     }
 
     // ACTIONLISTENER INTERFACE METHODS

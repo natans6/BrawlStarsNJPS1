@@ -29,7 +29,7 @@ public class Player {
 
     public Player(String rightImg, String name) {
         healthPlayerOne = 1000;
-        MOVE_AMT = 0.5;
+        MOVE_AMT = 1;
         crouch = false;
         jump = false;
         punch = false;
@@ -180,7 +180,7 @@ public class Player {
 
     public void walking() {
         walking = true;
-        MOVE_AMT = 0.8;
+        MOVE_AMT = 1;
     }
 
     public void idle() {
@@ -194,12 +194,12 @@ public class Player {
     public void crouching() {
         crouch = true;
         yCoord = 420;
-        MOVE_AMT = 0.25;
+        MOVE_AMT = 0.5;
     }
 
     public void jumping() {
         jump = true;
-        MOVE_AMT = 0.3;
+        MOVE_AMT = 0.5;
         int i = 1;
         while (i <= 5) {
             if (i == 1) {

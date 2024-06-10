@@ -29,7 +29,7 @@ public class PlayerTwo {
 
     public PlayerTwo(String leftImg, String name) {
         healthPlayerTwo = 1000;
-        MOVE_AMT = 0.5;
+        MOVE_AMT = 1;
         crouch = false;
         jump = false;
         punch = false;
@@ -189,17 +189,18 @@ public class PlayerTwo {
         punch = false;
         jump = false;
         yCoord = 375;
+        MOVE_AMT = 1;
     }
 
     public void crouching() {
         crouch = true;
         yCoord = 520;
-        MOVE_AMT = 0.25;
+        MOVE_AMT = 0.5;
     }
 
     public void jumping() {
         jump = true;
-        MOVE_AMT = 0.3;
+        MOVE_AMT = 0.5;
         int i = 1;
         while (i <= 5) {
             if (i == 1) {

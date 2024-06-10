@@ -13,11 +13,15 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private Player player;
     private PlayerTwo playerTwo;
     private boolean[] pressedKeys;
+    private int countOne;
+    private int countTwo;
     private Timer timer;
     private int time;
     private boolean OneisJumping;
     private boolean TwoisJumping;
     public GraphicsPanel(String name, String nameTwo) {
+        countOne = 0;
+        countTwo = 0;
         OneisJumping = false;
         TwoisJumping = false;
         int num = (int) (Math.random() * 5) + 1;
@@ -167,12 +171,46 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         }
         // If Statements for damage
         if (key == 69 && player.playerRect().intersects(playerTwo.playerTwoRect())){
-            int damage  = (int) (Math.random() * 11) + 60;
-            playerTwo.setHealthPlayerTwo(damage);
+            countOne++;
+            if (countOne == 1) {
+                int damage = (int) (Math.random() * 11) + 60;
+                playerTwo.setHealthPlayerTwo(damage);
+            }
+            if (countOne == 2)  {
+                playerTwo.setHealthPlayerTwo(100);
+            }
+            if (countOne == 3)  {
+                playerTwo.setHealthPlayerTwo(150);
+            }
+            if (countOne == 4)  {
+                playerTwo.setHealthPlayerTwo(200);
+            }
+            if (countOne == 5)  {
+                int damage = (int) (Math.random() * 11) + 60;
+                playerTwo.setHealthPlayerTwo(damage);
+                countOne = 0;
+            }
         }
         if (key == 85 && playerTwo.playerTwoRect().intersects(player.playerRect())){
-            int damage  = (int) (Math.random() * 11) + 60;
-            player.setHealthPlayerOne(damage);
+            countTwo++;
+            if (countTwo == 1) {
+                int damage = (int) (Math.random() * 11) + 60;
+                player.setHealthPlayerOne(damage);
+            }
+            if (countTwo == 2)  {
+                player.setHealthPlayerOne(100);
+            }
+            if (countTwo == 3)  {
+                player.setHealthPlayerOne(150);
+            }
+            if (countTwo == 4)  {
+                player.setHealthPlayerOne(200);
+            }
+            if (countTwo == 5)  {
+                int damage = (int) (Math.random() * 11) + 60;
+                player.setHealthPlayerOne(damage);
+                countTwo = 0;
+            }
         }
     }
 

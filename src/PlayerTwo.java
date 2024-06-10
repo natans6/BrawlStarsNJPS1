@@ -57,7 +57,7 @@ public class PlayerTwo {
         idle = new Animation(run_animation, 200);
 
         run_animation = new ArrayList<>();
-        for (int i = 1; i <= 8; i++) {
+        for (int i = 1; i <= 5; i++) {
             String filename = "src/RyuWalking/Ryu-Walking" + i + ".png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
@@ -90,7 +90,7 @@ public class PlayerTwo {
         jumps = new Animation(run_animation, 200);
 
         run_animation = new ArrayList<>();
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 2; i <= 3; i++) {
             String filename = "src/RyuPunch/Ryu-Punch" + i + ".png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
@@ -108,7 +108,7 @@ public class PlayerTwo {
             currentAnimation = crouchs;
         } else if (jump && !punch)    {
             currentAnimation = jumps;
-        } else if (punch)   {
+        } else if (punch && !crouch)   {
             currentAnimation = punchs;
         }
         else if (walking) {
@@ -193,7 +193,7 @@ public class PlayerTwo {
 
     public void crouching() {
         crouch = true;
-        yCoord = 420;
+        yCoord = 520;
         MOVE_AMT = 0.25;
     }
 

@@ -108,7 +108,7 @@ public class Player {
             currentAnimation = crouchs;
         } else if (jump && !punch)    {
             currentAnimation = jumps;
-        } else if (punch)   {
+        } else if (punch && !crouch)   {
             currentAnimation = punchs;
         }
         else if (walking) {

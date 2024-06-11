@@ -24,6 +24,9 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private boolean TwoisJumping;
     private BufferedImage koImage;
     private BufferedImage winKO;
+    private BufferedImage ryu;
+    private BufferedImage chunLi;
+
     public GraphicsPanel(String name, String nameTwo) {
         countOne = 0;
         countTwo = 0;
@@ -37,6 +40,16 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             koImage = ImageIO.read(new File("src/KO.png"));
         } catch (IOException e) {
         System.out.println(e.getMessage());
+        }
+        try {
+            ryu = ImageIO.read(new File("src/Ryu2.png"));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            chunLi = ImageIO.read(new File("src/ChunLi2.png"));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
         try {
             winKO = ImageIO.read(new File("src/WINKO.png"));
@@ -107,21 +120,22 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         g.drawString("Player Two Health: " + playerTwo.getHealthPlayerTwo(), 50, 80);
         g.drawImage(player.getPlayerImage(), player.getxCoord(), player.getyCoord(), player.getWidth(), player.getHeight(), null);
         g.drawImage(playerTwo.getPlayerImage(), playerTwo.getxCoord(), playerTwo.getyCoord(), playerTwo.getWidth(), playerTwo.getHeight(), null);
-
         g.setColor(Color.WHITE);
         g.fillRect(105,195, 1710, 60);
+        g.fillRect(0,120,110,202);
+        g.fillRect(1810,120,110,202);
         g.setColor(Color.red);
         g.fillRect(110, 200, 1700, 50);
         g.setColor(Color.yellow);
         if (gameGoing) {
             int part = (int) Math.round(((double) player.getHealthPlayerOne()) / 5000 * 800);
             g.fillRect(110 + 800 - part, 200, part, 50);
-        }
-        if (gameGoing) {
             int part2 = (int) Math.round(((double) playerTwo.getHealthPlayerTwo()) / 5000 * 800);
             g.fillRect(1010, 200, part2, 50);
             g.drawImage(koImage, 910, 200, koImage.getWidth(), koImage.getHeight(), null);
         }
+        g.drawImage(chunLi, 0,125, chunLi.getWidth(),chunLi.getHeight(),null);
+        g.drawImage(ryu, 1815,125, ryu.getWidth(),ryu.getHeight(),null);
 
         if (player.gethealthPlayerOne() <= 0)   {
             gameGoing = false;

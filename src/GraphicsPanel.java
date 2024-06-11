@@ -26,8 +26,12 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private BufferedImage kot;
     private BufferedImage ryu;
     private BufferedImage chunLi;
+    private String name;
+    private String nameTwo;
 
     public GraphicsPanel(String name, String nameTwo) {
+        this.name = name;
+        this.nameTwo = nameTwo;
         countOne = 0;
         countTwo = 0;
         OneisJumping = false;
@@ -128,8 +132,13 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         g.fillRect(1010, 200, part2, 50);
         g.drawImage(koImage, 910, 200, koImage.getWidth(), koImage.getHeight(), null);
         g.drawImage(chunLi, 5,150, chunLi.getWidth(),chunLi.getHeight(),null);
+        g.setFont(new Font("Courier BOLD", Font.BOLD, 30));
+        g.setColor(Color.WHITE);
+        g.drawString(name, 10, 120);
         g.drawImage(ryu, 1815,150, ryu.getWidth(),ryu.getHeight(),null);
-
+        g.setFont(new Font("Courier BOLD", Font.BOLD, 30));
+        g.setColor(Color.WHITE);
+        g.drawString(nameTwo, 1800, 120);
         if (player.gethealthPlayerOne() <= 0)   {
             gameGoing = false;
             player.KOing();
@@ -140,7 +149,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             playerTwo.KOing();
             timer.start();
         }
-        if (time >= 1)  {
+        if (time >= 1 && time < 5)  {
             g.drawImage(kot, 400, 200, 1200, 480, null);
             if (player.gethealthPlayerOne() <= 0)   {
                 player.removePlayer();
@@ -149,6 +158,8 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
                 playerTwo.removePlayer();
             }
         }
+
+
 
         if (pressedKeys[69] && gameGoing)    {
             player.punching();

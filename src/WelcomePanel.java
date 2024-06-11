@@ -52,7 +52,7 @@ public class WelcomePanel extends JPanel implements ActionListener {
         super.paintComponent(g);
         g.drawImage(background, 0, 0, null);
 
-        g.setFont(new Font("Arial", Font.BOLD, 15));
+        g.setFont(new Font("Courier BOLD", Font.BOLD, 15));
         g.setColor(Color.WHITE);
         g.drawString("PLAYER ONE:", 665, 250);
         playerOneName.setLocation(660, 280);

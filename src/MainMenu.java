@@ -15,7 +15,5 @@ public class MainMenu {
 
         // display the frame
         frame.setVisible(true);
-
-
     }
 }

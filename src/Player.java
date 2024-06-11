@@ -19,11 +19,13 @@ public class Player {
     private Boolean crouch;
     private Boolean jump;
     private Boolean punch;
+    private Boolean KOed;
     private Animation run;
     private Animation idle;
     private Animation crouchs;
     private Animation jumps;
     private Animation punchs;
+    private Animation KO;
     private Animation currentAnimation;
 
 
@@ -33,6 +35,7 @@ public class Player {
         crouch = false;
         jump = false;
         punch = false;
+        KOed = false;
         jumpCount = 0;
         this.name = name;
         facingRight = true;
@@ -98,21 +101,35 @@ public class Player {
                 System.out.println(e.getMessage());
             }
         }
-       punchs = new Animation(run_animation, 150);
+        punchs = new Animation(run_animation, 150);
+
+        run_animation = new ArrayList<>();
+        for (int i = 1; i <= 3; i++) {
+            String filename = "src/ChunLiKO/ChunLi-KO" + i + ".png";
+            try {
+                run_animation.add(ImageIO.read(new File(filename)));
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        KO = new Animation(run_animation, 150);
     }
 
     public void play() {
-        if (!walking && !crouch && !jump && !punch) {
-            currentAnimation = idle;
-        } else if (crouch && !jump && !punch)  {
-            currentAnimation = crouchs;
-        } else if (jump && !punch && !crouch)    {
-            currentAnimation = jumps;
-        } else if (punch && !crouch)   {
-            currentAnimation = punchs;
-        }
-        else if (walking) {
-            currentAnimation = run;
+        if (KOed)   {
+            currentAnimation = KO;
+        } else {
+            if (!walking && !crouch && !jump && !punch) {
+                currentAnimation = idle;
+            } else if (crouch && !jump && !punch) {
+                currentAnimation = crouchs;
+            } else if (jump && !punch && !crouch) {
+                currentAnimation = jumps;
+            } else if (punch && !crouch) {
+                currentAnimation = punchs;
+            } else if (walking) {
+                currentAnimation = run;
+            }
         }
     }
 
@@ -230,6 +247,12 @@ public class Player {
     public void punching()  {
         punch = true;
         yCoord = 415;
+    }
+
+    public void KOing() {
+        KOed = true;
+        yCoord = 500;
+
     }
 
     public boolean getPunch(){

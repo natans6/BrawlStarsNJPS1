@@ -125,9 +125,11 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
         if (player.gethealthPlayerOne() <= 0)   {
             gameGoing = false;
+            player.KOing();
         }
         if (playerTwo.gethealthPlayerTwo() <= 0)    {
             gameGoing = false;
+            playerTwo.KOing();
         }
 
 

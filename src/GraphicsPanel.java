@@ -173,22 +173,18 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             }
         }
 
-
-
-        if (pressedKeys[69] && gameGoing && !playerOneIsCrouching)    {
-            if (!playerOneIsCrouching && !playerTwoIsCrouching) {
-                player.punching();
-            }
+        if (pressedKeys[69] && gameGoing && !pressedKeys[83])    {
+            player.punching();
         }
 
-        if (pressedKeys[65] && gameGoing) {
+        if (pressedKeys[65] && gameGoing && !OneisJumping) {
             player.faceLeft();
             player.moveLeft();
             player.walking();
         }
 
         // player moves right (D)
-        if (pressedKeys[68] && gameGoing) {
+        if (pressedKeys[68] && gameGoing && !OneisJumping) {
             player.faceRight();
             player.moveRight();
             player.walking();
@@ -203,20 +199,18 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             OneisJumping = true;
         }
         //PlayerTwo
-        if (pressedKeys[85] && gameGoing && !playerTwoIsCrouching)    {
-            if (!playerTwoIsCrouching) {
-                playerTwo.punching();
-            }
+        if (pressedKeys[85] && gameGoing && !pressedKeys[75])    {
+            playerTwo.punching();
         }
 
-        if (pressedKeys[74] && gameGoing) {
+        if (pressedKeys[74] && gameGoing && !TwoisJumping) {
             playerTwo.faceLeft();
             playerTwo.moveLeft();
             playerTwo.walking();
         }
 
         // player moves right (D)
-        if (pressedKeys[76] && gameGoing) {
+        if (pressedKeys[76] && gameGoing && !TwoisJumping) {
             playerTwo.faceRight();
             playerTwo.moveRight();
             playerTwo.walking();

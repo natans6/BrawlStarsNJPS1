@@ -109,7 +109,7 @@ public class PlayerTwo {
         time = 0;
 
         run_animation = new ArrayList<>();
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 3; i <= 3; i++) {
             String filename = "src/RyuKO/Ryu-KO" + i + ".png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
@@ -249,6 +249,7 @@ public class PlayerTwo {
     }
 
     public void punching()  {
+        crouch = false;
         punch = true;
         yCoord = 380;
     }

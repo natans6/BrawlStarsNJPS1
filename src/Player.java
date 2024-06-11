@@ -27,6 +27,7 @@ public class Player {
     private Animation punchs;
     private Animation KO;
     private Animation currentAnimation;
+    private Animation KOStop;
 
 
     public Player(String rightImg, String name) {
@@ -104,7 +105,7 @@ public class Player {
         punchs = new Animation(run_animation, 150);
 
         run_animation = new ArrayList<>();
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 3; i <= 3; i++) {
             String filename = "src/ChunLiKO/ChunLi-KO" + i + ".png";
             try {
                 run_animation.add(ImageIO.read(new File(filename)));
@@ -113,6 +114,7 @@ public class Player {
             }
         }
         KO = new Animation(run_animation, 150);
+
     }
 
     public void play() {
@@ -248,6 +250,7 @@ public class Player {
     }
 
     public void punching()  {
+        crouch = false;
         punch = true;
         yCoord = 415;
     }

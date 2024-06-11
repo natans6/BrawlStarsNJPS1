@@ -261,6 +261,10 @@ public class PlayerTwo {
         return punch;
     }
 
+    public void removePlayer()  {
+        currentAnimation = null;
+    }
+
     //These functions are newly added to let the player turn left and right
     //These functions when combined with the updated getxCoord()
     //Allow the player to turn without needing separate images for left and right

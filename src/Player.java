@@ -217,6 +217,9 @@ public class Player {
         MOVE_AMT = 0.25;
     }
 
+    public void removePlayer()  {
+        currentAnimation = null;
+    }
     public void jumping() {
         jump = true;
         MOVE_AMT = 0.3;

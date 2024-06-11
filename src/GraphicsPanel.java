@@ -23,7 +23,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private boolean OneisJumping;
     private boolean TwoisJumping;
     private BufferedImage koImage;
-    private BufferedImage winKO;
+    private BufferedImage kot;
     private BufferedImage ryu;
     private BufferedImage chunLi;
 
@@ -42,6 +42,11 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         System.out.println(e.getMessage());
         }
         try {
+            kot = ImageIO.read(new File("src/Untitled.png"));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
             ryu = ImageIO.read(new File("src/Ryu2.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -51,11 +56,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        try {
-            winKO = ImageIO.read(new File("src/WINKO.png"));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
         if (num == 1)   {
             try {
                 background = ImageIO.read(new File("src/Map1.png"));
@@ -96,7 +97,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         pressedKeys = new boolean[128];
         time = 0;
         timer = new Timer(1000, this); // this Timer will call the actionPerformed interface method every 1000ms = 1 second
-        timer.start();
         addKeyListener(this);
         addMouseListener(this);
         setFocusable(true); // this line of code + one below makes this panel active for keylistener events
@@ -115,9 +115,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         //However, this could potentially introduce desyncs between the graphics and the game logic
 
 
-        g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.drawString("Player One Health: " + player.getHealthPlayerOne(), 50, 40);
-        g.drawString("Player Two Health: " + playerTwo.getHealthPlayerTwo(), 50, 80);
         g.drawImage(player.getPlayerImage(), player.getxCoord(), player.getyCoord(), player.getWidth(), player.getHeight(), null);
         g.drawImage(playerTwo.getPlayerImage(), playerTwo.getxCoord(), playerTwo.getyCoord(), playerTwo.getWidth(), playerTwo.getHeight(), null);
         g.setColor(Color.WHITE);
@@ -140,12 +137,22 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         if (player.gethealthPlayerOne() <= 0)   {
             gameGoing = false;
             player.KOing();
+            timer.start();
         }
         if (playerTwo.gethealthPlayerTwo() <= 0)    {
             gameGoing = false;
             playerTwo.KOing();
+            timer.start();
         }
-
+        if (time >= 1)  {
+            g.drawImage(kot, 400, 200, 1200, 480, null);
+            if (player.gethealthPlayerOne() <= 0)   {
+                player.removePlayer();
+            }
+            if (playerTwo.gethealthPlayerTwo() <= 0)    {
+                playerTwo.removePlayer();
+            }
+        }
 
         if (pressedKeys[69] && gameGoing)    {
             player.punching();

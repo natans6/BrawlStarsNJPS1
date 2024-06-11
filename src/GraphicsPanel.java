@@ -1,4 +1,7 @@
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -30,6 +33,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private String nameTwo;
 
     public GraphicsPanel(String name, String nameTwo) {
+        
         this.name = name;
         this.nameTwo = nameTwo;
         countOne = 0;
@@ -107,6 +111,16 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         requestFocusInWindow(); // see comment above
     }
 
+    private void playFreedomDive() {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/assets/XI - Freedom Dive ↓.wav").getAbsoluteFile());
+            Clip freedomDive = AudioSystem.getClip();
+            freedomDive.open(audioInputStream);
+            freedomDive.start();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
     @Override
     public void paintComponent(Graphics g) {
         player.play();
@@ -149,7 +163,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             playerTwo.KOing();
             timer.start();
         }
-        if (time >= 1 && time < 5)  {
+        if (time >= 1)  {
             g.drawImage(kot, 400, 200, 1200, 480, null);
             if (player.gethealthPlayerOne() <= 0)   {
                 player.removePlayer();
@@ -161,8 +175,10 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
 
 
 
-        if (pressedKeys[69] && gameGoing)    {
-            player.punching();
+        if (pressedKeys[69] && gameGoing && !playerOneIsCrouching)    {
+            if (!playerOneIsCrouching && !playerTwoIsCrouching) {
+                player.punching();
+            }
         }
 
         if (pressedKeys[65] && gameGoing) {
@@ -182,13 +198,15 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             playerOneIsCrouching = true;
         }
 
-        if (pressedKeys[87] && !OneisJumping && gameGoing) {
+        if (pressedKeys[87] && !OneisJumping && gameGoing ) {
             player.jumping();
             OneisJumping = true;
         }
         //PlayerTwo
-        if (pressedKeys[85] && gameGoing)    {
-            playerTwo.punching();
+        if (pressedKeys[85] && gameGoing && !playerTwoIsCrouching)    {
+            if (!playerTwoIsCrouching) {
+                playerTwo.punching();
+            }
         }
 
         if (pressedKeys[74] && gameGoing) {
@@ -208,7 +226,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             playerTwoIsCrouching = true;
         }
 
-        if (pressedKeys[73] && !TwoisJumping && gameGoing) {
+        if (pressedKeys[73] && !TwoisJumping && gameGoing ) {
             playerTwo.jumping();
             TwoisJumping = true;
         }

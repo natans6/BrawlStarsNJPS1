@@ -29,6 +29,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private BufferedImage kot;
     private BufferedImage ryu;
     private BufferedImage chunLi;
+    private BufferedImage toilet;
     private String name;
     private String nameTwo;
 
@@ -51,6 +52,11 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         }
         try {
             kot = ImageIO.read(new File("src/Untitled.png"));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            toilet = ImageIO.read(new File("src/brainrot.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -148,11 +154,11 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         g.drawImage(chunLi, 5,150, chunLi.getWidth(),chunLi.getHeight(),null);
         g.setFont(new Font("Courier BOLD", Font.BOLD, 30));
         g.setColor(Color.WHITE);
-        g.drawString(name, 10, 120);
+        g.drawString(name, 10, 125);
         g.drawImage(ryu, 1815,150, ryu.getWidth(),ryu.getHeight(),null);
         g.setFont(new Font("Courier BOLD", Font.BOLD, 30));
         g.setColor(Color.WHITE);
-        g.drawString(nameTwo, 1800, 120);
+        g.drawString(nameTwo, 1800, 125);
         if (player.gethealthPlayerOne() <= 0)   {
             gameGoing = false;
             player.KOing();
@@ -165,14 +171,10 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         }
         if (time >= 1)  {
             g.drawImage(kot, 400, 200, 1200, 480, null);
-            if (player.gethealthPlayerOne() <= 0)   {
-                player.removePlayer();
-            }
-            if (playerTwo.gethealthPlayerTwo() <= 0)    {
-                playerTwo.removePlayer();
-            }
         }
-
+        if (time >= 3)  {
+            g.drawImage(toilet, 400, 200, 1200, 480, null);
+        }
         if (pressedKeys[69] && gameGoing && !pressedKeys[83])    {
             player.punching();
         }

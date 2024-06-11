@@ -14,6 +14,8 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private PlayerTwo playerTwo;
     private boolean[] pressedKeys;
     private boolean gameGoing;
+    private boolean playerTwoIsCrouching;
+    private boolean playerOneIsCrouching;
     private int countOne;
     private int countTwo;
     private Timer timer;
@@ -28,6 +30,8 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         OneisJumping = false;
         TwoisJumping = false;
         gameGoing = true;
+        playerOneIsCrouching = false;
+        playerTwoIsCrouching = false;
         int num = (int) (Math.random() * 5) + 1;
         try {
             koImage = ImageIO.read(new File("src/KO.png"));
@@ -145,6 +149,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         }
         if (pressedKeys[83] && gameGoing) {
             player.crouching();
+            playerOneIsCrouching = true;
         }
 
         if (pressedKeys[87] && !OneisJumping && gameGoing) {
@@ -170,6 +175,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         }
         if (pressedKeys[75] && gameGoing) {
             playerTwo.crouching();
+            playerTwoIsCrouching = true;
         }
 
         if (pressedKeys[73] && !TwoisJumping && gameGoing) {
@@ -193,9 +199,11 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         pressedKeys[key] = false;
         if (key == 65 || key == 68 || key == 83 || key == 69) {
             player.idle();
+            playerOneIsCrouching = false;
         }
         if (key == 85 || key == 74 || key == 76 || key == 75) {
             playerTwo.idle();
+            playerTwoIsCrouching = false;
         }
         if (key == 87)  {
             player.stopJump();
@@ -206,7 +214,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             TwoisJumping = false;
         }
         // If Statements for damage
-        if (key == 69 && player.playerRect().intersects(playerTwo.playerTwoRect())){
+        if (key == 69 && player.playerRect().intersects(playerTwo.playerTwoRect()) && !playerTwoIsCrouching){
             countOne++;
             if (countOne == 1) {
                 int damage = (int) (Math.random() * 11) + 60;
@@ -227,7 +235,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
                 countOne = 0;
             }
         }
-        if (key == 85 && playerTwo.playerTwoRect().intersects(player.playerRect())){
+        if (key == 85 && playerTwo.playerTwoRect().intersects(player.playerRect()) && !playerOneIsCrouching){
             countTwo++;
             if (countTwo == 1) {
                 int damage = (int) (Math.random() * 11) + 60;

@@ -108,7 +108,7 @@ public class PlayerTwo {
             currentAnimation = crouchs;
         } else if (jump && !punch && !crouch)    {
             currentAnimation = jumps;
-        } else if (punch)   {
+        } else if (punch && !crouch)   {
             currentAnimation = punchs;
         }
         else if (walking) {
@@ -195,7 +195,7 @@ public class PlayerTwo {
 
     public void crouching() {
         crouch = true;
-        yCoord = 500;
+        yCoord = 513;
         MOVE_AMT = 0.25;
     }
 

@@ -37,7 +37,7 @@ public class Player {
         this.name = name;
         facingRight = true;
         xCoord = 300; // starting position is (50, 435), right on top of ground
-        yCoord = 350;
+        yCoord = 385;
         score = 0;
         walking = false;
         try {
@@ -108,7 +108,7 @@ public class Player {
             currentAnimation = crouchs;
         } else if (jump && !punch && !crouch)    {
             currentAnimation = jumps;
-        } else if (punch)   {
+        } else if (punch && !crouch)   {
             currentAnimation = punchs;
         }
         else if (walking) {
@@ -191,12 +191,12 @@ public class Player {
         crouch = false;
         punch = false;
         jump = false;
-        yCoord = 350;
+        yCoord = 385;
     }
 
     public void crouching() {
         crouch = true;
-        yCoord = 420;
+        yCoord = 455;
         MOVE_AMT = 0.25;
     }
 
@@ -224,12 +224,12 @@ public class Player {
     public void stopJump()  {
         currentAnimation = idle;
         jump = false;
-        yCoord = 350;
+        yCoord = 385;
     }
 
     public void punching()  {
         punch = true;
-        yCoord = 410;
+        yCoord = 415;
     }
 
     public boolean getPunch(){

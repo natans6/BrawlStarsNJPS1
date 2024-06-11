@@ -78,7 +78,7 @@ public class Player {
         }
         crouchs = new Animation(run_animation, 150);
         run_animation = new ArrayList<>();
-        for (int i = 1; i <= 4; i++) {
+        for (int i = 2; i <= 4; i++) {
             String filename = "src/ChunLiJumping/ChunLi-Jumping" + i + ".png";
             jumpCount++;
             try {

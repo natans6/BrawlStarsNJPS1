@@ -109,13 +109,15 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         g.setColor(Color.red);
         g.fillRect(110, 200, 1700, 50);
         g.setColor(Color.yellow);
-        int part = (int) Math.round(((double) player.getHealthPlayerOne()) / 5000 * 800);
-        g.fillRect(110 + 800 - part, 200, part, 50);
-
-        int part2 = (int) Math.round(((double) playerTwo.getHealthPlayerTwo()) / 5000 * 800);
-        g.fillRect(1010, 200, part2, 50);
-        g.drawImage(koImage,910,200,koImage.getWidth(),koImage.getHeight(),null);
-
+        if (gameGoing) {
+            int part = (int) Math.round(((double) player.getHealthPlayerOne()) / 5000 * 800);
+            g.fillRect(110 + 800 - part, 200, part, 50);
+        }
+        if (gameGoing) {
+            int part2 = (int) Math.round(((double) playerTwo.getHealthPlayerTwo()) / 5000 * 800);
+            g.fillRect(1010, 200, part2, 50);
+            g.drawImage(koImage, 910, 200, koImage.getWidth(), koImage.getHeight(), null);
+        }
 
         if (player.gethealthPlayerOne() <= 0)   {
             gameGoing = false;
@@ -123,6 +125,8 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         if (playerTwo.gethealthPlayerTwo() <= 0)    {
             gameGoing = false;
         }
+
+
         if (pressedKeys[69] && gameGoing)    {
             player.punching();
         }

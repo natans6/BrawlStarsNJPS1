@@ -19,7 +19,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private boolean gameGoing;
     private boolean playerTwoIsCrouching;
     private boolean playerOneIsCrouching;
-    private boolean KO;
     private int countOne;
     private int countTwo;
     private Timer timer;
@@ -30,12 +29,11 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
     private BufferedImage kot;
     private BufferedImage ryu;
     private BufferedImage chunLi;
-    private BufferedImage toilet;
     private String name;
     private String nameTwo;
 
     public GraphicsPanel(String name, String nameTwo) {
-        KO = false;
+        
         this.name = name;
         this.nameTwo = nameTwo;
         countOne = 0;
@@ -53,11 +51,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         }
         try {
             kot = ImageIO.read(new File("src/Untitled.png"));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            toilet = ImageIO.read(new File("src/brainrot.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -116,23 +109,18 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         addMouseListener(this);
         setFocusable(true); // this line of code + one below makes this panel active for keylistener events
         requestFocusInWindow(); // see comment above
-        playFreedomDive();
     }
 
     private void playFreedomDive() {
-        if (!KO) {
-            try {
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/soundtrack.wav").getAbsoluteFile());
-                Clip freedomDive = AudioSystem.getClip();
-                freedomDive.open(audioInputStream);
-                freedomDive.start();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/assets/XI - Freedom Dive ↓.wav").getAbsoluteFile());
+            Clip freedomDive = AudioSystem.getClip();
+            freedomDive.open(audioInputStream);
+            freedomDive.start();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
-
-
     @Override
     public void paintComponent(Graphics g) {
         player.play();
@@ -160,43 +148,45 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
         g.drawImage(chunLi, 5,150, chunLi.getWidth(),chunLi.getHeight(),null);
         g.setFont(new Font("Courier BOLD", Font.BOLD, 30));
         g.setColor(Color.WHITE);
-        g.drawString(name, 10, 125);
+        g.drawString(name, 10, 120);
         g.drawImage(ryu, 1815,150, ryu.getWidth(),ryu.getHeight(),null);
         g.setFont(new Font("Courier BOLD", Font.BOLD, 30));
         g.setColor(Color.WHITE);
-        g.drawString(nameTwo, 1800, 125);
+        g.drawString(nameTwo, 1800, 120);
         if (player.gethealthPlayerOne() <= 0)   {
-            KO = true;
             gameGoing = false;
             player.KOing();
             timer.start();
         }
         if (playerTwo.gethealthPlayerTwo() <= 0)    {
-            KO = true;
             gameGoing = false;
             playerTwo.KOing();
             timer.start();
         }
         if (time >= 1)  {
             g.drawImage(kot, 400, 200, 1200, 480, null);
+            if (player.gethealthPlayerOne() <= 0)   {
+                player.removePlayer();
+            }
+            if (playerTwo.gethealthPlayerTwo() <= 0)    {
+                playerTwo.removePlayer();
+            }
         }
-        if (time >= 3)  {
-            g.drawImage(toilet, 0, 0, 1920, 1080, null);
-        }
-        if (pressedKeys[69] && gameGoing && !pressedKeys[83])    {
+
+
+
+        if (pressedKeys[69] && gameGoing && !playerOneIsCrouching)    {
             player.punching();
         }
 
-        if (pressedKeys[65] && gameGoing && !OneisJumping) {
-            player.idle();
+        if (pressedKeys[65] && gameGoing) {
             player.faceLeft();
             player.moveLeft();
             player.walking();
         }
 
         // player moves right (D)
-        if (pressedKeys[68] && gameGoing && !OneisJumping) {
-            player.idle();
+        if (pressedKeys[68] && gameGoing) {
             player.faceRight();
             player.moveRight();
             player.walking();
@@ -211,20 +201,18 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             OneisJumping = true;
         }
         //PlayerTwo
-        if (pressedKeys[85] && gameGoing && !pressedKeys[75])    {
+        if (pressedKeys[85] && gameGoing && !playerTwoIsCrouching)    {
             playerTwo.punching();
         }
 
-        if (pressedKeys[74] && gameGoing && !TwoisJumping) {
-            playerTwo.idle();
+        if (pressedKeys[74] && gameGoing) {
             playerTwo.faceLeft();
             playerTwo.moveLeft();
             playerTwo.walking();
         }
 
         // player moves right (D)
-        if (pressedKeys[76] && gameGoing && !TwoisJumping) {
-            playerTwo.idle();
+        if (pressedKeys[76] && gameGoing) {
             playerTwo.faceRight();
             playerTwo.moveRight();
             playerTwo.walking();
@@ -270,7 +258,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
             TwoisJumping = false;
         }
         // If Statements for damage
-        if (key == 69 && player.playerRect().intersects(playerTwo.playerTwoRect()) && !playerTwoIsCrouching && !TwoisJumping){
+        if (key == 69 && player.playerRect().intersects(playerTwo.playerTwoRect()) && !playerTwoIsCrouching){
             countOne++;
             if (countOne == 1) {
                 int damage = (int) (Math.random() * 11) + 60;
@@ -291,11 +279,7 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
                 countOne = 0;
             }
         }
-        if (key == 69 && TwoisJumping)  {
-            int damage = 30;
-            playerTwo.setHealthPlayerTwo(damage);
-        }
-        if (key == 85 && playerTwo.playerTwoRect().intersects(player.playerRect()) && !playerOneIsCrouching && !OneisJumping){
+        if (key == 85 && playerTwo.playerTwoRect().intersects(player.playerRect()) && !playerOneIsCrouching){
             countTwo++;
             if (countTwo == 1) {
                 int damage = (int) (Math.random() * 11) + 60;
@@ -315,10 +299,6 @@ public class GraphicsPanel extends JPanel implements KeyListener, MouseListener,
                 player.setHealthPlayerOne(damage);
                 countTwo = 0;
             }
-        }
-        if (key == 85 && OneisJumping)  {
-            int damage = 30;
-            player.setHealthPlayerOne(damage);
         }
     }
 

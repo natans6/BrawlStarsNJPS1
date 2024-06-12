@@ -35,7 +35,7 @@ public class PlayerTwo {
     private Animation KO;
     private Animation currentAnimation;
 
-
+    // Constructor used to set animations
     public PlayerTwo(String leftImg, String name) {
         healthPlayerTwo = 5000;
         MOVE_AMT = 1;
@@ -123,6 +123,7 @@ public class PlayerTwo {
         KO = new Animation(run_animation, 150);
     }
 
+    // Method chooses what animation should be played
     public void play() {
         if (KOed)   {
             currentAnimation = KO;
@@ -150,18 +151,11 @@ public class PlayerTwo {
             System.out.println(e.getMessage());
         }
     }
-    //This function is changed from the previous version to let the player turn left and right
-    //This version of the function, when combined with getWidth() and getHeight()
-    //Allow the player to turn without needing separate images for left and right
     public int gethealthPlayerTwo() {
-
         return healthPlayerTwo;
     }
     public int getHealthPlayerTwo(){
         return  healthPlayerTwo;
-    }
-    public void  setHealthPlayerTwo(int damage){
-        healthPlayerTwo -= damage;
     }
     public int getxCoord() {
         if (facingRight) {
@@ -170,43 +164,45 @@ public class PlayerTwo {
             return (int) (xCoord + (getPlayerImage().getWidth()));
         }
     }
-
-    public BufferedImage getPlayerImage() {
-        return currentAnimation.getActiveFrame();
-    }
-
     public int getyCoord() {
         return (int) yCoord;
     }
-
-    public int getScore() {
-        return score;
+    public BufferedImage getPlayerImage() {
+        return currentAnimation.getActiveFrame();
+    }
+    public int getHeight() {
+        return getPlayerImage().getHeight();
+    }
+    public int getWidth() {
+        if (facingRight) {
+            return getPlayerImage().getWidth();
+        } else {
+            return getPlayerImage().getWidth() * -1;
+        }
     }
 
-    public String getName() {
-        return name;
+    // Method used to deduct the health of the player
+    public void setHealthPlayerTwo(int damage){
+        healthPlayerTwo -= damage;
     }
-
     public void faceRight() {
         facingRight = true;
     }
-
     public void faceLeft() {
         facingRight = false;
     }
 
+    // Movement
     public void moveRight() {
         if (xCoord + MOVE_AMT <= 1920 - playerTwoRect().getWidth()) {
             xCoord += MOVE_AMT;
         }
     }
-
     public void moveLeft() {
         if (xCoord - MOVE_AMT >= 0) {
             xCoord -= MOVE_AMT;
         }
     }
-
     public void turn() {
         if (facingRight) {
             faceLeft();
@@ -214,12 +210,10 @@ public class PlayerTwo {
             faceRight();
         }
     }
-
     public void walking() {
         walking = true;
         MOVE_AMT = 0.8;
     }
-
     public void idle() {
         walking = false;
         crouch = false;
@@ -227,13 +221,11 @@ public class PlayerTwo {
         jump = false;
         yCoord = 375;
     }
-
     public void crouching() {
         crouch = true;
         yCoord = 513;
         MOVE_AMT = 0.25;
     }
-
     public void jumping() {
         jump = true;
         MOVE_AMT = 0.3;
@@ -254,46 +246,23 @@ public class PlayerTwo {
             i++;
         }
     }
-
     public void stopJump()  {
         currentAnimation = idle;
         jump = false;
         yCoord = 375;
     }
-
     public void punching()  {
         crouch = false;
         punch = true;
         yCoord = 380;
     }
-
     public void KOing() {
         KOed = true;
         yCoord = 500;
     }
-    public boolean getPunch(){
-        return punch;
-    }
-
     public void removePlayer()  {
         currentAnimation = null;
     }
-
-    //These functions are newly added to let the player turn left and right
-    //These functions when combined with the updated getxCoord()
-    //Allow the player to turn without needing separate images for left and right
-    public int getHeight() {
-        return getPlayerImage().getHeight();
-    }
-
-    public int getWidth() {
-        if (facingRight) {
-            return getPlayerImage().getWidth();
-        } else {
-            return getPlayerImage().getWidth() * -1;
-        }
-    }
-
     // we use a "bounding Rectangle" for detecting collision
     public Rectangle playerTwoRect() {
         int imageHeight = getPlayerImage().getHeight();

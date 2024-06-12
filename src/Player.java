@@ -32,7 +32,7 @@ public class Player {
     private Animation currentAnimation;
     private Animation KOStop;
 
-
+    // Constructor used to set animations
     public Player(String rightImg, String name) {
         healthPlayerOne = 5000;
         MOVE_AMT = 0.5;
@@ -120,6 +120,7 @@ public class Player {
 
     }
 
+    // Method chooses what animation should be played
     public void play() {
         if (KOed)   {
             currentAnimation = KO;
@@ -148,16 +149,8 @@ public class Player {
             System.out.println(e.getMessage());
         }
     }
-    //This function is changed from the previous version to let the player turn left and right
-    //This version of the function, when combined with getWidth() and getHeight()
-    //Allow the player to turn without needing separate images for left and right
-
     public int getHealthPlayerOne(){
-
         return  healthPlayerOne;
-    }
-    public void  setHealthPlayerOne(int damage){
-        healthPlayerOne -= damage;
     }
     public int getxCoord() {
         if (facingRight) {
@@ -166,40 +159,43 @@ public class Player {
             return (int) (xCoord + (getPlayerImage().getWidth()));
         }
     }
-
     public BufferedImage getPlayerImage() {
         return currentAnimation.getActiveFrame();
     }
-
     public int getyCoord() {
         return (int) yCoord;
-    }
-
-    public int getScore() {
-        return score;
     }
     public int gethealthPlayerOne() {
         return healthPlayerOne;
     }
-
-    public String getName() {
-        return name;
+    public int getHeight() {
+        return getPlayerImage().getHeight();
+    }
+    public int getWidth() {
+        if (facingRight) {
+            return getPlayerImage().getWidth();
+        } else {
+            return getPlayerImage().getWidth() * -1;
+        }
     }
 
+    // Method used to deduct the health of the player
+    public void setHealthPlayerOne(int damage){
+        healthPlayerOne -= damage;
+    }
     public void faceRight() {
         facingRight = true;
     }
-
     public void faceLeft() {
         facingRight = false;
     }
 
+    // Movement
     public void moveRight() {
         if (xCoord + MOVE_AMT <= 1920 - playerRect().getWidth()) {
             xCoord += MOVE_AMT;
         }
     }
-
     public void moveLeft() {
         if (xCoord - MOVE_AMT >= 0) {
             xCoord -= MOVE_AMT;
@@ -213,12 +209,10 @@ public class Player {
             faceRight();
         }
     }
-
     public void walking() {
         walking = true;
         MOVE_AMT = 0.8;
     }
-
     public void idle() {
         walking = false;
         crouch = false;
@@ -226,13 +220,11 @@ public class Player {
         jump = false;
         yCoord = 385;
     }
-
     public void crouching() {
         crouch = true;
         yCoord = 455;
         MOVE_AMT = 0.25;
     }
-
     public void removePlayer()  {
         currentAnimation = null;
     }
@@ -256,44 +248,21 @@ public class Player {
             i++;
         }
     }
-
     public void stopJump()  {
         currentAnimation = idle;
         jump = false;
         yCoord = 385;
     }
-
     public void punching()  {
         crouch = false;
         punch = true;
         yCoord = 415;
     }
-
     public void KOing() {
         KOed = true;
         yCoord = 500;
 
     }
-
-    public boolean getPunch(){
-        return punch;
-    }
-
-    //These functions are newly added to let the player turn left and right
-    //These functions when combined with the updated getxCoord()
-    //Allow the player to turn without needing separate images for left and right
-    public int getHeight() {
-        return getPlayerImage().getHeight();
-    }
-
-    public int getWidth() {
-        if (facingRight) {
-            return getPlayerImage().getWidth();
-        } else {
-            return getPlayerImage().getWidth() * -1;
-        }
-    }
-
     // we use a "bounding Rectangle" for detecting collision
     public Rectangle playerRect() {
         int imageHeight = getPlayerImage().getHeight();

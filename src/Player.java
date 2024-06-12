@@ -1,4 +1,7 @@
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -82,7 +85,7 @@ public class Player {
         }
         crouchs = new Animation(run_animation, 150);
         run_animation = new ArrayList<>();
-        for (int i = 2; i <= 4; i++) {
+        for (int i = 1; i <= 3; i++) {
             String filename = "src/ChunLiJumping/ChunLi-Jumping" + i + ".png";
             jumpCount++;
             try {
@@ -135,11 +138,22 @@ public class Player {
         }
     }
 
+    private void KO() {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/KOtrack.wav").getAbsoluteFile());
+            Clip freedomDive = AudioSystem.getClip();
+            freedomDive.open(audioInputStream);
+            freedomDive.start();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
     //This function is changed from the previous version to let the player turn left and right
     //This version of the function, when combined with getWidth() and getHeight()
     //Allow the player to turn without needing separate images for left and right
 
     public int getHealthPlayerOne(){
+
         return  healthPlayerOne;
     }
     public void  setHealthPlayerOne(int damage){

@@ -1,4 +1,7 @@
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -137,11 +140,21 @@ public class PlayerTwo {
             }
         }
     }
-
+    private void KO() {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/KOtrack.wav").getAbsoluteFile());
+            Clip freedomDive = AudioSystem.getClip();
+            freedomDive.open(audioInputStream);
+            freedomDive.start();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
     //This function is changed from the previous version to let the player turn left and right
     //This version of the function, when combined with getWidth() and getHeight()
     //Allow the player to turn without needing separate images for left and right
     public int gethealthPlayerTwo() {
+
         return healthPlayerTwo;
     }
     public int getHealthPlayerTwo(){
